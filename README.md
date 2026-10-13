@@ -25,8 +25,8 @@ similar features - good work!
 ## Screenshots
 
 <p>
-  <img src="images/hvac_control.png" alt="Climate control card">
-  <img src="images/sensor_cards.png" alt="Sensor and function cards">
+  <img src="https://raw.githubusercontent.com/voldemarpanso/ha_systemair/master/images/hvac_control.png" alt="Climate control card">
+  <img src="https://raw.githubusercontent.com/voldemarpanso/ha_systemair/master/images/sensor_cards.png" alt="Sensor and function cards">
 </p>
 
 ## Installation
