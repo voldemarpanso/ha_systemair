@@ -1,0 +1,1414 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Systemair SAVE Connect",
+        "description": "Log in with your Systemair Home Solutions account.",
+        "data": {
+          "email": "[%key:common::config_flow::data::email%]",
+          "password": "[%key:common::config_flow::data::password%]",
+          "cloud_push": "Receive push updates (websocket)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "[%key:common::config_flow::title::reauth%]",
+        "description": "Enter the current password for {email}.",
+        "data": {
+          "password": "[%key:common::config_flow::data::password%]"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
+      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
+      "unknown": "[%key:common::config_flow::error::unknown%]"
+    },
+    "abort": {
+      "already_configured": "[%key:common::config_flow::abort::already_configured_account%]",
+      "reauth_successful": "[%key:common::config_flow::abort::reauth_successful%]"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "data": {
+          "scan_interval": "Poll interval",
+          "cloud_push": "Receive push updates (websocket)"
+        },
+        "data_description": {
+          "scan_interval": "Each poll is one request that the Systemair cloud relays to the unit. Default 60 s; below 30 s is not recommended. During testing, about 100 requests within a couple of minutes took the unit offline for a few minutes (it recovered on its own).",
+          "cloud_push": "Only gives status updates (online, alarms, firmware update); settings and readings still come from polling."
+        }
+      }
+    }
+  },
+  "issues": {
+    "register_ids": {
+      "title": "Register ids changed for {device}",
+      "description": "SystemAir's register ids for {device} do not match the integration's table. The integration works around it (it reads the ids the unit reports and skips ids the unit no longer has), but please report it at {url} so the table can be updated.\n\nChanged: {changed}\nMissing from the table: {missing}\nNo longer on the unit: {gone}"
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "problem": {
+        "name": "Problem"
+      },
+      "reg_alarm_byf_alarm": {
+        "name": "Alarm Bypass Damper Feedback"
+      },
+      "reg_alarm_bys_alarm": {
+        "name": "Alarm Bypass Damper"
+      },
+      "reg_alarm_co2_alarm": {
+        "name": "Alarm CO2 Sensor"
+      },
+      "reg_alarm_defrosting_alarm": {
+        "name": "Alarm Defrosting Malfunction"
+      },
+      "reg_alarm_eaf_ctrl_alarm": {
+        "name": "Alarm Extract Air Fan Control"
+      },
+      "reg_alarm_eaf_rpm_alarm": {
+        "name": "Alarm Extract Air Fan RPM"
+      },
+      "reg_alarm_eat_alarm": {
+        "name": "Alarm Extract Air Temperature Sensor"
+      },
+      "reg_alarm_ect_alarm": {
+        "name": "Alarm Extra Controller Temperature Sensor"
+      },
+      "reg_alarm_eft_alarm": {
+        "name": "Alarm Efficiency Temperature Sensor"
+      },
+      "reg_alarm_emt_alarm": {
+        "name": "Alarm Emergency Thermostat"
+      },
+      "reg_alarm_external_stop_alarm": {
+        "name": "Alarm External Stop"
+      },
+      "reg_alarm_extra_controller_alarm": {
+        "name": "Alarm Extra Controller"
+      },
+      "reg_alarm_filter_alarm": {
+        "name": "Alarm Filter Change"
+      },
+      "reg_alarm_filter_warning_alarm": {
+        "name": "Alarm Filter Warning"
+      },
+      "reg_alarm_fire_alarm_alarm": {
+        "name": "Alarm Fire Alarm"
+      },
+      "reg_alarm_fpt_alarm": {
+        "name": "Alarm Frost Protection Sensor"
+      },
+      "reg_alarm_frost_prot_alarm": {
+        "name": "Alarm Frost Protection"
+      },
+      "reg_alarm_low_sat_alarm": {
+        "name": "Alarm Low Supply Air Temperature"
+      },
+      "reg_alarm_manual_fan_stop_alarm": {
+        "name": "Alarm Manual Fan Stop"
+      },
+      "reg_alarm_manual_override_outputs_alarm": {
+        "name": "Alarm Output in Manual Mode"
+      },
+      "reg_alarm_oat_alarm": {
+        "name": "Alarm Outdoor Air Temperature Sensor"
+      },
+      "reg_alarm_oht_alarm": {
+        "name": "Alarm Overheat Temperature Sensor"
+      },
+      "reg_alarm_overheat_temperature_alarm": {
+        "name": "Alarm Overheat Temperature"
+      },
+      "reg_alarm_pdm_eat_alarm": {
+        "name": "Alarm Built-in Extract Air Temperature Sensor"
+      },
+      "reg_alarm_pdm_rhs_alarm": {
+        "name": "Alarm Built-in Humidity Sensor"
+      },
+      "reg_alarm_rat_alarm": {
+        "name": "Alarm Room Air Temperature Sensor"
+      },
+      "reg_alarm_rgs_alarm": {
+        "name": "Alarm Rotor Guard"
+      },
+      "reg_alarm_rh_alarm": {
+        "name": "Alarm Relative Humidity Sensor"
+      },
+      "reg_alarm_saf_ctrl_alarm": {
+        "name": "Alarm Supply Air Fan Control"
+      },
+      "reg_alarm_saf_rpm_alarm": {
+        "name": "Alarm Supply Air Fan RPM"
+      },
+      "reg_alarm_sat_alarm": {
+        "name": "Alarm Supply Air Temperature Sensor"
+      },
+      "reg_alarm_secondary_air_alarm": {
+        "name": "Alarm Secondary Air Damper"
+      },
+      "reg_output_do1": {
+        "name": "Digital Output 1"
+      },
+      "reg_output_do2": {
+        "name": "Digital Output 2"
+      },
+      "reg_output_do3": {
+        "name": "Digital Output 3"
+      },
+      "reg_output_do4": {
+        "name": "Digital Output 4"
+      }
+    },
+    "button": {
+      "clear_alarms": {
+        "name": "Clear alarms"
+      }
+    },
+    "climate": {
+      "fan": {
+        "name": "Ventilation"
+      }
+    },
+    "number": {
+      "reg_ai_cfg_correction_ntc1": {
+        "name": "Temperature Input 1 Correction"
+      },
+      "reg_ai_cfg_correction_ntc2": {
+        "name": "Temperature Input 2 Correction"
+      },
+      "reg_ai_cfg_correction_ntc3": {
+        "name": "Temperature Input 3 Correction"
+      },
+      "reg_ai_cfg_correction_ntc4": {
+        "name": "Temperature Input 4 Correction"
+      },
+      "reg_ai_cfg_correction_ntc5": {
+        "name": "Temperature Input 5 Correction"
+      },
+      "reg_ai_cfg_correction_ntc6": {
+        "name": "Temperature Input 6 Correction"
+      },
+      "reg_ai_cfg_correction_ntc7": {
+        "name": "Temperature Input 7 Correction"
+      },
+      "reg_cooler_recovery_limit_t": {
+        "name": "Cooling recovery limit"
+      },
+      "reg_demc_co2_settings_itime": {
+        "name": "CO2 integration time"
+      },
+      "reg_demc_co2_settings_pband": {
+        "name": "CO2 P-band"
+      },
+      "reg_demc_co2_settings_sp": {
+        "name": "CO2 setpoint"
+      },
+      "reg_demc_rh_settings_itime": {
+        "name": "Humidity integration time"
+      },
+      "reg_demc_rh_settings_pband": {
+        "name": "Humidity P-band"
+      },
+      "reg_demc_rh_settings_sp_summer": {
+        "name": "Humidity setpoint summer"
+      },
+      "reg_demc_rh_settings_sp_winter": {
+        "name": "Humidity setpoint winter"
+      },
+      "reg_demc_summer_winter_t": {
+        "name": "Humidity winter mode temperature"
+      },
+      "reg_eco_t_y1_offset": {
+        "name": "Eco heater offset"
+      },
+      "reg_fan_outdoor_comp_start_t_summer": {
+        "name": "Outdoor compensation summer start temperature"
+      },
+      "reg_fan_outdoor_comp_start_t_winter": {
+        "name": "Outdoor compensation winter start temperature"
+      },
+      "reg_fan_outdoor_comp_stop_t_summer": {
+        "name": "Outdoor compensation summer stop temperature"
+      },
+      "reg_fan_outdoor_comp_stop_t_winter": {
+        "name": "Outdoor compensation winter stop temperature"
+      },
+      "reg_fan_outdoor_comp_value_summer": {
+        "name": "Outdoor compensation summer value"
+      },
+      "reg_fan_outdoor_comp_value_winter": {
+        "name": "Outdoor compensation winter value"
+      },
+      "reg_filter_period": {
+        "name": "Filter period"
+      },
+      "reg_free_cooling_outdoor_nighttime_deactivation_high_t_limit": {
+        "name": "Free cooling outdoor high limit"
+      },
+      "reg_free_cooling_outdoor_nighttime_deactivation_low_t_limit": {
+        "name": "Free cooling outdoor low limit"
+      },
+      "reg_free_cooling_room_cancel_t": {
+        "name": "Free cooling room cancel temperature"
+      },
+      "reg_manual_override_output_ao1_value": {
+        "name": "Analog Output 1 Manual Value"
+      },
+      "reg_manual_override_output_ao2_value": {
+        "name": "Analog Output 2 Manual Value"
+      },
+      "reg_manual_override_output_ao3_value": {
+        "name": "Analog Output 3 Manual Value"
+      },
+      "reg_manual_override_output_ao4_value": {
+        "name": "Analog Output 4 Manual Value"
+      },
+      "reg_manual_override_output_ao5_value": {
+        "name": "Analog Output 5 Manual Value"
+      },
+      "reg_manual_override_output_eaf_value": {
+        "name": "Extract Fan Manual Value"
+      },
+      "reg_manual_override_output_saf_value": {
+        "name": "Supply Fan Manual Value"
+      },
+      "reg_manual_override_output_triac_value": {
+        "name": "Triac Manual Value"
+      },
+      "reg_pdm_correction_rh": {
+        "name": "Built-in humidity correction"
+      },
+      "reg_pdm_correction_t": {
+        "name": "Built-in extract air temperature correction"
+      },
+      "reg_rotor_rh_transfer_ctrl_setpoint": {
+        "name": "Moisture transfer setpoint"
+      },
+      "reg_ui_cfg_correction_analog1": {
+        "name": "Universal Input 1 Sensor Correction"
+      },
+      "reg_ui_cfg_correction_analog2": {
+        "name": "Universal Input 2 Sensor Correction"
+      },
+      "reg_ui_cfg_correction_analog3": {
+        "name": "Universal Input 3 Sensor Correction"
+      },
+      "reg_ui_cfg_correction_analog4": {
+        "name": "Universal Input 4 Sensor Correction"
+      },
+      "reg_ui_cfg_correction_analog5": {
+        "name": "Universal Input 5 Sensor Correction"
+      },
+      "reg_ui_cfg_correction_analog6": {
+        "name": "Universal Input 6 Sensor Correction"
+      },
+      "reg_usermode_away_time": {
+        "name": "Away duration"
+      },
+      "reg_usermode_crowded_t_offset": {
+        "name": "Crowded temperature offset"
+      },
+      "reg_usermode_crowded_time": {
+        "name": "Crowded duration"
+      },
+      "reg_usermode_fireplace_time": {
+        "name": "Fireplace duration"
+      },
+      "reg_usermode_holiday_time": {
+        "name": "Holiday duration"
+      },
+      "reg_usermode_refresh_time": {
+        "name": "Refresh duration"
+      }
+    },
+    "select": {
+      "reg_ai_cfg_connection_ntc1": {
+        "name": "Temperature Input 1 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_oat": "Outdoor Air Temp. Sensor (OAT)",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc2": {
+        "name": "Temperature Input 2 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_sat": "Supply Air Temp. Sensor (SAT)",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc3": {
+        "name": "Temperature Input 3 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc4": {
+        "name": "Temperature Input 4 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_oht": "Overheat Temp. Sensor (OHT)",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc5": {
+        "name": "Temperature Input 5 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc6": {
+        "name": "Temperature Input 6 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)",
+          "input_analog_values_eft": "Efficiency Temp. Sensor (EFT)"
+        }
+      },
+      "reg_ai_cfg_connection_ntc7": {
+        "name": "Temperature Input 7 Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_analog_values_ftp": "Frost Protection Temp. Sensor (FPT)",
+          "input_analog_values_rat": "Room Air Temp. Sensor (RAT)",
+          "input_analog_values_eat": "Extract Air Temp. Sensor (EAT)",
+          "input_analog_values_ect": "Extra Controller Temp. Sensor (ECT)"
+        }
+      },
+      "reg_ao_cfg_connection_1": {
+        "name": "Analog Output 1 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_ao_types_y2": "Y2 Exchanger",
+          "output_ao_types_y3": "Y3 Cooling",
+          "output_ao_types_y4": "Y4 Extra Controller",
+          "output_ao_types_y1y3": "Y1 / Y3 Change-over",
+          "output_ao_types_ao": "AO Temperature setpoint"
+        }
+      },
+      "reg_ao_cfg_connection_2": {
+        "name": "Analog Output 2 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_ao_types_y3": "Y3 Cooling",
+          "output_ao_types_y4": "Y4 Extra Controller",
+          "output_ao_types_y1y3": "Y1 / Y3 Change-over",
+          "output_ao_types_ao": "AO Temperature setpoint"
+        }
+      },
+      "reg_ao_cfg_connection_3": {
+        "name": "Analog Output 3 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_ao_types_y3": "Y3 Cooling",
+          "output_ao_types_y4": "Y4 Extra Controller",
+          "output_ao_types_y1y3": "Y1 / Y3 Change-over",
+          "output_ao_types_ao": "AO Temperature setpoint"
+        }
+      },
+      "reg_ao_cfg_connection_4": {
+        "name": "Analog Output 4 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_ao_types_y3": "Y3 Cooling",
+          "output_ao_types_y4": "Y4 Extra Controller",
+          "output_ao_types_y1y3": "Y1 / Y3 Change-over",
+          "output_ao_types_ao": "AO Temperature setpoint"
+        }
+      },
+      "reg_ao_cfg_connection_5": {
+        "name": "Analog Output 5 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_ao_types_y3": "Y3 Cooling",
+          "output_ao_types_y4": "Y4 Extra Controller",
+          "output_ao_types_y1y3": "Y1 / Y3 Change-over",
+          "output_ao_types_ao": "AO Temperature setpoint"
+        }
+      },
+      "reg_defrosting_mode": {
+        "name": "Defrosting mode",
+        "state": {
+          "control_regulation_defrosting_control_mode_soft": "Soft",
+          "control_regulation_defrosting_control_mode_normal": "Normal",
+          "control_regulation_defrosting_control_mode_hard": "Hard"
+        }
+      },
+      "reg_di_cfg_polarity_1": {
+        "name": "Digital Input 1 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_di_cfg_polarity_2": {
+        "name": "Digital Input 2 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_di_connection_1": {
+        "name": "Digital Input 1 Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_rgs": "Rotation guard (RGS)",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_di_connection_2": {
+        "name": "Digital Input 2 Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_do_cfg_connection_1": {
+        "name": "Digital Output 1 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_digital_types_y1step": "Step Controller Y1 Heating",
+          "output_digital_types_y2step": "Step Controller Y2 Exchanger",
+          "output_digital_types_y3step": "Step Controller Y3 Cooling",
+          "output_digital_types_y4step": "Step Controller Y4 Extra Controller",
+          "output_digital_types_sum": "Sum Alarm",
+          "output_digital_types_oee_damper": "Outdoor-/Exhaust Air Damper",
+          "output_digital_types_secair": "Secondary Air (Recirculation Air)",
+          "output_digital_types_coolstart": "Activate Cooling",
+          "output_digital_types_interlockextfan": "Interlock External fan control",
+          "output_digital_types_p1heating": "Start/Stop Circ. Pump, Y1 Heating",
+          "output_digital_types_p1cooling": "Start/Stop Circ. Pump, Y3 Cooling",
+          "output_digital_types_p1changeover": "Start/Stop Circ. Pump,Y1/3 Change-over",
+          "output_digital_types_p1extra": "Start/Stop Circ. Pump, Y4 Extra Controller",
+          "output_digital_types_unitstatusok": "Unit Status OK",
+          "output_digital_types_wsunscheduled": "Week schedule - Unscheduled",
+          "output_digital_types_wsscheduled": "Week schedule - Scheduled"
+        }
+      },
+      "reg_do_cfg_connection_2": {
+        "name": "Digital Output 2 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_digital_types_y1step": "Step Controller Y1 Heating",
+          "output_digital_types_y2step": "Step Controller Y2 Exchanger",
+          "output_digital_types_y3step": "Step Controller Y3 Cooling",
+          "output_digital_types_y4step": "Step Controller Y4 Extra Controller",
+          "output_digital_types_sum": "Sum Alarm",
+          "output_digital_types_oee_damper": "Outdoor-/Exhaust Air Damper",
+          "output_digital_types_secair": "Secondary Air (Recirculation Air)",
+          "output_digital_types_coolstart": "Activate Cooling",
+          "output_digital_types_interlockextfan": "Interlock External fan control",
+          "output_digital_types_p1heating": "Start/Stop Circ. Pump, Y1 Heating",
+          "output_digital_types_p1changeover": "Start/Stop Circ. Pump,Y1/3 Change-over",
+          "output_digital_types_p1extra": "Start/Stop Circ. Pump, Y4 Extra Controller",
+          "output_digital_types_unitstatusok": "Unit Status OK",
+          "output_digital_types_wsunscheduled": "Week schedule - Unscheduled",
+          "output_digital_types_wsscheduled": "Week schedule - Scheduled"
+        }
+      },
+      "reg_do_cfg_connection_3": {
+        "name": "Digital Output 3 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_digital_types_y1step": "Step Controller Y1 Heating",
+          "output_digital_types_y2step": "Step Controller Y2 Exchanger",
+          "output_digital_types_y3step": "Step Controller Y3 Cooling",
+          "output_digital_types_y4step": "Step Controller Y4 Extra Controller",
+          "output_digital_types_sum": "Sum Alarm",
+          "output_digital_types_oee_damper": "Outdoor-/Exhaust Air Damper",
+          "output_digital_types_secair": "Secondary Air (Recirculation Air)",
+          "output_digital_types_coolstart": "Activate Cooling",
+          "output_digital_types_interlockextfan": "Interlock External fan control",
+          "output_digital_types_p1heating": "Start/Stop Circ. Pump, Y1 Heating",
+          "output_digital_types_p1changeover": "Start/Stop Circ. Pump,Y1/3 Change-over",
+          "output_digital_types_p1extra": "Start/Stop Circ. Pump, Y4 Extra Controller",
+          "output_digital_types_unitstatusok": "Unit Status OK",
+          "output_digital_types_wsunscheduled": "Week schedule - Unscheduled",
+          "output_digital_types_wsscheduled": "Week schedule - Scheduled"
+        }
+      },
+      "reg_do_cfg_connection_4": {
+        "name": "Digital Output 4 Type",
+        "state": {
+          "output_ao_types_inactive": "Inactive Output",
+          "output_digital_types_y1step": "Step Controller Y1 Heating",
+          "output_digital_types_y2step": "Step Controller Y2 Exchanger",
+          "output_digital_types_y3step": "Step Controller Y3 Cooling",
+          "output_digital_types_y4step": "Step Controller Y4 Extra Controller",
+          "output_digital_types_sum": "Sum Alarm",
+          "output_digital_types_oee_damper": "Outdoor-/Exhaust Air Damper",
+          "output_digital_types_secair": "Secondary Air (Recirculation Air)",
+          "output_digital_types_coolstart": "Activate Cooling",
+          "output_digital_types_interlockextfan": "Interlock External fan control",
+          "output_digital_types_p1heating": "Start/Stop Circ. Pump, Y1 Heating",
+          "output_digital_types_p1changeover": "Start/Stop Circ. Pump,Y1/3 Change-over",
+          "output_digital_types_p1extra": "Start/Stop Circ. Pump, Y4 Extra Controller",
+          "output_digital_types_unitstatusok": "Unit Status OK",
+          "output_digital_types_wsunscheduled": "Week schedule - Unscheduled",
+          "output_digital_types_wsscheduled": "Week schedule - Scheduled"
+        }
+      },
+      "reg_fan_outdoor_comp_type": {
+        "name": "Outdoor compensation type",
+        "state": {
+          "saf": "SAF",
+          "saf_eaf": "SAF / EAF"
+        }
+      },
+      "reg_free_cooling_min_speed_level_eaf": {
+        "name": "Free cooling extract airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_free_cooling_min_speed_level_saf": {
+        "name": "Free cooling supply airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_heat_exchanger_type": {
+        "name": "Heat Exchanger Type Setting",
+        "state": {
+          "components_heat_exchanger_values_rotating": "Rotating",
+          "components_heat_exchanger_values_plate": "Plate"
+        }
+      },
+      "reg_iaq_speed_level_max": {
+        "name": "Air quality maximum airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_iaq_speed_level_min": {
+        "name": "Air quality minimum airflow",
+        "state": {
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal"
+        }
+      },
+      "reg_manual_override_output_ao1": {
+        "name": "Analog Output 1 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_ao2": {
+        "name": "Analog Output 2 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_ao3": {
+        "name": "Analog Output 3 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_ao4": {
+        "name": "Analog Output 4 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_ao5": {
+        "name": "Analog Output 5 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_do1": {
+        "name": "Digital Output 1 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_do2": {
+        "name": "Digital Output 2 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_do3": {
+        "name": "Digital Output 3 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_do4": {
+        "name": "Digital Output 4 Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_eaf": {
+        "name": "Extract Fan Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_saf": {
+        "name": "Supply Fan Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_manual_override_output_triac": {
+        "name": "Triac Value Type",
+        "state": {
+          "user_modes_auto": "Auto",
+          "user_modes_manual": "Manual"
+        }
+      },
+      "reg_system_unit_temperature": {
+        "name": "Temperature unit",
+        "state": {
+          "celsius": "Celsius",
+          "fahrenheit": "Fahrenheit"
+        }
+      },
+      "reg_tc_control_mode": {
+        "name": "Temperature control mode",
+        "state": {
+          "control_regulation_temperature_control_control_mode_supply_air_temperature_control": "Supply air temperature control",
+          "control_regulation_temperature_control_control_mode_room_air_temperature_control": "Room temperature control",
+          "control_regulation_temperature_control_control_mode_extract_air_temperature_control": "Extract air temperature control"
+        }
+      },
+      "reg_ui_cfg_polarity_digital1": {
+        "name": "Universal Input 1 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_polarity_digital2": {
+        "name": "Universal Input 2 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_polarity_digital3": {
+        "name": "Universal Input 3 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_polarity_digital4": {
+        "name": "Universal Input 4 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_polarity_digital5": {
+        "name": "Universal Input 5 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_polarity_digital6": {
+        "name": "Universal Input 6 Polarity",
+        "state": {
+          "input_digital_normally_open": "Normally open (NO)",
+          "input_digital_normally_closed": "Normally closed (NC)"
+        }
+      },
+      "reg_ui_cfg_type_1": {
+        "name": "Universal Input 1 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_cfg_type_2": {
+        "name": "Universal Input 2 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_cfg_type_3": {
+        "name": "Universal Input 3 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_cfg_type_4": {
+        "name": "Universal Input 4 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_cfg_type_5": {
+        "name": "Universal Input 5 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_cfg_type_6": {
+        "name": "Universal Input 6 Type",
+        "state": {
+          "input_not_set": "Not set",
+          "input_analog_selection": "Analog Input",
+          "input_digital_selection": "Digital Input"
+        }
+      },
+      "reg_ui_connection_analog1": {
+        "name": "Universal Input 1 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_analog2": {
+        "name": "Universal Input 2 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_analog3": {
+        "name": "Universal Input 3 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_analog4": {
+        "name": "Universal Input 4 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_analog5": {
+        "name": "Universal Input 5 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_analog6": {
+        "name": "Universal Input 6 Analog Function",
+        "state": {
+          "input_analog_values_inactive": "Inactive Input",
+          "input_universal_values_rh": "RH",
+          "input_universal_values_co2": "CO2",
+          "input_universal_values_saf_control": "SAF Control",
+          "input_universal_values_eaf_control": "EAF Control",
+          "input_universal_values_bys": "Bypass feedback damper"
+        }
+      },
+      "reg_ui_connection_digital1": {
+        "name": "Universal Input 1 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_ui_connection_digital2": {
+        "name": "Universal Input 2 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_ui_connection_digital3": {
+        "name": "Universal Input 3 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_ui_connection_digital4": {
+        "name": "Universal Input 4 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_ui_connection_digital5": {
+        "name": "Universal Input 5 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_ui_connection_digital6": {
+        "name": "Universal Input 6 Digital Function",
+        "state": {
+          "input_digital_inactive": "Inactive input",
+          "input_digital_away": "Away function",
+          "input_digital_bys": "Bypass Damper (BYS)",
+          "input_digital_vacuum_cleaner": "Central vacuum cleaner function",
+          "input_digital_cooker": "Cooker hood function",
+          "input_digital_crowded": "Crowded function",
+          "input_digital_emt": "Emergency Thermostat (EMT)",
+          "input_digital_ext_stop": "External Stop",
+          "input_digital_extra_alarm": "Extra Controller Alarm",
+          "input_digital_fireplace": "Fireplace Function",
+          "input_digital_holiday": "Holiday Function",
+          "input_digital_refresh": "Refresh Function",
+          "input_digital_feedback": "Change-over feedback",
+          "input_digital_fire_alarm": "Fire alarm",
+          "input_digital_conf_di_one": "Configurable Digital Input 1",
+          "input_digital_conf_di_two": "Configurable Digital Input 2",
+          "input_digital_conf_di_three": "Configurable Digital Input 3",
+          "input_digital_pressure_guard": "Pressure guard"
+        }
+      },
+      "reg_unit_config_bypass_location": {
+        "name": "Bypass Location",
+        "state": {
+          "supply": "Supply",
+          "extract": "Extract"
+        }
+      },
+      "reg_unit_config_cooler": {
+        "name": "Cooler Setting",
+        "state": {
+          "components_values_none": "None",
+          "components_values_water": "Water",
+          "components_values_change_over": "Change-over"
+        }
+      },
+      "reg_unit_config_extra_controller": {
+        "name": "Extra Controller Setting",
+        "state": {
+          "components_values_none": "None",
+          "components_values_pre_heater": "Preheater",
+          "components_values_heating": "Heating",
+          "components_values_cooler": "Cooler",
+          "components_values_geo": "GEO Exchanger"
+        }
+      },
+      "reg_unit_config_reheater_type": {
+        "name": "Heater Setting",
+        "state": {
+          "components_values_none": "None",
+          "components_values_electrical": "Electrical",
+          "components_values_water": "Water",
+          "components_values_change_over": "Change-over"
+        }
+      },
+      "reg_usermode_away_airflow_level_eaf": {
+        "name": "Away extract airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal"
+        }
+      },
+      "reg_usermode_away_airflow_level_saf": {
+        "name": "Away supply airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "levels_low": "Low",
+          "levels_normal": "Normal"
+        }
+      },
+      "reg_usermode_cookerhood_airflow_level_eaf": {
+        "name": "Cooker hood extract airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_cookerhood_airflow_level_saf": {
+        "name": "Cooker hood supply airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_crowded_airflow_level_eaf": {
+        "name": "Crowded extract airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_crowded_airflow_level_saf": {
+        "name": "Crowded supply airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_fireplace_airflow_level_eaf": {
+        "name": "Fireplace extract airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal"
+        }
+      },
+      "reg_usermode_fireplace_airflow_level_saf": {
+        "name": "Fireplace supply airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_holiday_airflow_level_eaf": {
+        "name": "Holiday extract airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal"
+        }
+      },
+      "reg_usermode_holiday_airflow_level_saf": {
+        "name": "Holiday supply airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal"
+        }
+      },
+      "reg_usermode_refresh_airflow_level_eaf": {
+        "name": "Refresh extract airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_refresh_airflow_level_saf": {
+        "name": "Refresh supply airflow",
+        "state": {
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_vacuumcleaner_airflow_level_eaf": {
+        "name": "Vacuum cleaner extract airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      },
+      "reg_usermode_vacuumcleaner_airflow_level_saf": {
+        "name": "Vacuum cleaner supply airflow",
+        "state": {
+          "air_airflow_level_minimum": "Minimum",
+          "air_airflow_level_low": "Low",
+          "air_airflow_level_normal": "Normal",
+          "air_airflow_level_high": "High",
+          "air_airflow_level_maximum": "Maximum"
+        }
+      }
+    },
+    "sensor": {
+      "air_quality": {
+        "name": "Air Quality"
+      },
+      "alarm_log": {
+        "name": "Alarm log"
+      },
+      "analog_output_1": {
+        "name": "Analog Output 1"
+      },
+      "analog_output_2": {
+        "name": "Analog Output 2"
+      },
+      "analog_output_3": {
+        "name": "Analog Output 3"
+      },
+      "analog_output_4": {
+        "name": "Analog Output 4"
+      },
+      "analog_output_5": {
+        "name": "Analog Output 5"
+      },
+      "co2_sensor": {
+        "name": "CO2 Sensor"
+      },
+      "components_cooler": {
+        "name": "Cooler",
+        "state": {
+          "components_values_none": "None",
+          "components_values_water": "Water",
+          "components_values_change_over": "Change-over"
+        }
+      },
+      "components_extra_controller": {
+        "name": "Extra Controller",
+        "state": {
+          "components_values_none": "None",
+          "components_values_pre_heater": "Preheater",
+          "components_values_heating": "Heating",
+          "components_values_cooler": "Cooler",
+          "components_values_geo": "GEO Exchanger"
+        }
+      },
+      "components_heat_exchanger": {
+        "name": "Heat Exchanger Type",
+        "state": {
+          "components_heat_exchanger_values_rotating": "Rotating",
+          "components_heat_exchanger_values_plate": "Plate"
+        }
+      },
+      "components_heater": {
+        "name": "Heater",
+        "state": {
+          "components_values_none": "None",
+          "components_values_electrical": "Electrical",
+          "components_values_water": "Water",
+          "components_values_change_over": "Change-over"
+        }
+      },
+      "efficiency_temperature": {
+        "name": "Efficiency Temperature"
+      },
+      "extra_controller_temperature": {
+        "name": "Extra Controller Temperature"
+      },
+      "extract_air_fan_speed": {
+        "name": "Extract Air Fan Speed"
+      },
+      "extract_temperature": {
+        "name": "Extract Temperature"
+      },
+      "fan_level_eaf_high": {
+        "name": "High level extract airflow"
+      },
+      "fan_level_eaf_low": {
+        "name": "Low level extract airflow"
+      },
+      "fan_level_eaf_max": {
+        "name": "Maximum level extract airflow"
+      },
+      "fan_level_eaf_min": {
+        "name": "Minimum level extract airflow"
+      },
+      "fan_level_eaf_normal": {
+        "name": "Normal level extract airflow"
+      },
+      "fan_level_saf_high": {
+        "name": "High level supply airflow"
+      },
+      "fan_level_saf_low": {
+        "name": "Low level supply airflow"
+      },
+      "fan_level_saf_max": {
+        "name": "Maximum level supply airflow"
+      },
+      "fan_level_saf_min": {
+        "name": "Minimum level supply airflow"
+      },
+      "fan_level_saf_normal": {
+        "name": "Normal level supply airflow"
+      },
+      "fan_percentage_eaf": {
+        "name": "Extract Fan Output"
+      },
+      "fan_percentage_saf": {
+        "name": "Supply Fan Output"
+      },
+      "filter_remaining_percent": {
+        "name": "Filter Life Remaining"
+      },
+      "filter_remaining_time": {
+        "name": "Filter Time Remaining"
+      },
+      "frost_protection_temperature": {
+        "name": "Frost Protection Temperature"
+      },
+      "internal_extract_temperature": {
+        "name": "Internal Extract Temperature"
+      },
+      "internal_relative_humidity": {
+        "name": "Extract Air Relative Humidity"
+      },
+      "outdoor_temperature": {
+        "name": "Outdoor Temperature"
+      },
+      "overheating_temperature": {
+        "name": "Overheating Temperature"
+      },
+      "preset_remaining_time": {
+        "name": "Preset Time Remaining"
+      },
+      "room_relative_humidity": {
+        "name": "Room Relative Humidity"
+      },
+      "room_temperature": {
+        "name": "Room Temperature"
+      },
+      "supply_air_fan_speed": {
+        "name": "Supply Air Fan Speed"
+      },
+      "supply_temperature": {
+        "name": "Supply Temperature"
+      },
+      "week_schedule": {
+        "name": "Week schedule"
+      }
+    },
+    "switch": {
+      "reg_alarm_low_sat_enabled": {
+        "name": "Low supply air temperature alarm"
+      },
+      "reg_demc_co2_settings_on_off": {
+        "name": "Demand control CO2"
+      },
+      "reg_demc_rh_settings_on_off": {
+        "name": "Demand control humidity"
+      },
+      "reg_eco_mode_on_off": {
+        "name": "Eco mode"
+      },
+      "reg_fan_manual_stop_allowed": {
+        "name": "Manual fan stop allowed"
+      },
+      "reg_free_cooling_on_off": {
+        "name": "Free cooling"
+      },
+      "reg_heat_exchanger_cooling_recovery_on_off": {
+        "name": "Cooling recovery"
+      },
+      "reg_manual_override_output_do1_value": {
+        "name": "Digital Output 1 Manual Value"
+      },
+      "reg_manual_override_output_do2_value": {
+        "name": "Digital Output 2 Manual Value"
+      },
+      "reg_manual_override_output_do3_value": {
+        "name": "Digital Output 3 Manual Value"
+      },
+      "reg_manual_override_output_do4_value": {
+        "name": "Digital Output 4 Manual Value"
+      },
+      "reg_passive_house_activation": {
+        "name": "Passive house"
+      },
+      "reg_rotor_rh_transfer_ctrl_on_off": {
+        "name": "Moisture transfer"
+      },
+      "reg_unit_config_rhs_pdm": {
+        "name": "Built-in Humidity Sensor"
+      },
+      "reg_unit_config_sec_air": {
+        "name": "Secondary Air"
+      }
+    },
+    "time": {
+      "reg_free_cooling_end_time_h": {
+        "name": "Free cooling end time"
+      },
+      "reg_free_cooling_start_time_h": {
+        "name": "Free cooling start time"
+      }
+    },
+    "update": {
+      "firmware_control_panel": {
+        "name": "Control panel firmware"
+      },
+      "firmware_iam": {
+        "name": "IAM firmware"
+      },
+      "firmware_main_board": {
+        "name": "Main board firmware"
+      }
+    }
+  }
+}
