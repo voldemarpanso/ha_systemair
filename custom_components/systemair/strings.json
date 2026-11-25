@@ -224,6 +224,36 @@
       "reg_eco_t_y1_offset": {
         "name": "Eco heater offset"
       },
+      "reg_fan_level_eaf_high_percentage": {
+        "name": "High level extract airflow setting"
+      },
+      "reg_fan_level_eaf_low_percentage": {
+        "name": "Low level extract airflow setting"
+      },
+      "reg_fan_level_eaf_max_percentage": {
+        "name": "Maximum level extract airflow setting"
+      },
+      "reg_fan_level_eaf_min_percentage": {
+        "name": "Minimum level extract airflow setting"
+      },
+      "reg_fan_level_eaf_normal_percentage": {
+        "name": "Normal level extract airflow setting"
+      },
+      "reg_fan_level_saf_high_percentage": {
+        "name": "High level supply airflow setting"
+      },
+      "reg_fan_level_saf_low_percentage": {
+        "name": "Low level supply airflow setting"
+      },
+      "reg_fan_level_saf_max_percentage": {
+        "name": "Maximum level supply airflow setting"
+      },
+      "reg_fan_level_saf_min_percentage": {
+        "name": "Minimum level supply airflow setting"
+      },
+      "reg_fan_level_saf_normal_percentage": {
+        "name": "Normal level supply airflow setting"
+      },
       "reg_fan_outdoor_comp_start_t_summer": {
         "name": "Outdoor compensation summer start temperature"
       },

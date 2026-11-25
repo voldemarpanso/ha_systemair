@@ -146,6 +146,9 @@ def _preset(mode: str, title: str, unit: str | None) -> list[ConfigRegister]:
     ]
 
 
+_LEVEL_TITLES = {"MIN": "Minimum", "MAX": "Maximum"}
+
+
 CONFIG_REGISTERS: tuple[ConfigRegister, ...] = (
     # Everyday settings
     ConfigRegister("REG_ECO_MODE_ON_OFF", "Eco mode", True, icon="mdi:leaf"),
@@ -189,6 +192,12 @@ CONFIG_REGISTERS: tuple[ConfigRegister, ...] = (
     # Airflow range the unit uses for demand control (air quality: CO2 / humidity).
     ConfigRegister("REG_IAQ_SPEED_LEVEL_MIN", "Air quality minimum airflow", True, icon="mdi:fan-chevron-down"),
     ConfigRegister("REG_IAQ_SPEED_LEVEL_MAX", "Air quality maximum airflow", True, icon="mdi:fan-chevron-up"),
+    # Fan output (%) of each airflow level. Demand control moves between them, so they set the supply/extract balance.
+    *(ConfigRegister(f"REG_FAN_LEVEL_{fan}_{level}_PERCENTAGE",
+                     f"{_LEVEL_TITLES.get(level, level.capitalize())} level "
+                     f"{'supply' if fan == 'SAF' else 'extract'} airflow setting",
+                     True, icon="mdi:fan", unit=PERCENTAGE)
+      for level in ("MIN", "LOW", "NORMAL", "HIGH", "MAX") for fan in ("SAF", "EAF")),
     ConfigRegister("REG_DEMC_CO2_SETTINGS_ON_OFF", "Demand control CO2"),
     ConfigRegister("REG_DEMC_CO2_SETTINGS_SP", "CO2 setpoint", True, icon="mdi:molecule-co2"),
     ConfigRegister("REG_DEMC_CO2_SETTINGS_PBAND", "CO2 P-band", icon="mdi:tune"),
